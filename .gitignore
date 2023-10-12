@@ -1,0 +1,15 @@
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files, sensitive data
+*.tfvars
+*.tfvars.json
+infrastructure/tfplan
+infrastructure/.terraform.lock.hcl
