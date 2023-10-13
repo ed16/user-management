@@ -75,7 +75,7 @@ resource "aws_codebuild_project" "example" {
 
     environment_variable {
       name  = "AWS_DEFAULT_REGION"
-      value = "us-west-2"
+      value = "eu-central-1"
     }
 
     environment_variable {
