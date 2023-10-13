@@ -95,7 +95,7 @@ resource "aws_codebuild_project" "example" {
 
     environment_variable {
       name  = "REPOSITORY_URI"
-      value = "https://365309254644.dkr.ecr.eu-central-1.amazonaws.com/my-golang-app"
+      value = "365309254644.dkr.ecr.eu-central-1.amazonaws.com/my-golang-app"
     }
   }
 
