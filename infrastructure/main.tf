@@ -111,7 +111,7 @@ resource "aws_ecs_task_definition" "app" {
   [
     {
       "name": "app",
-      "image": "my-golang-app:latest",
+      "image": "365309254644.dkr.ecr.eu-central-1.amazonaws.com/my-golang-app:latest",
       "essential": true,
       "portMappings": [
         {
