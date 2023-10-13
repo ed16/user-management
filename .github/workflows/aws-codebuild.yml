@@ -27,18 +27,7 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/my-golang-app:latest
-
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: .github/workflows/task-definition.json
-          container-name: my-golang-app
-          image: ${{ steps.build-image.outputs.digest }}
-
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: app-service
-          cluster: eduard-test-cluster
+      
+      - name: Force new deployment
+        run: |
+            aws ecs update-service --cluster eduard-test-cluster --service app-service --force-new-deployment
