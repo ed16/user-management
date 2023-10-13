@@ -74,20 +74,24 @@ resource "aws_ecs_cluster" "eduard_test_cluster" {
 }
 
 resource "aws_instance" "ecs_instance" {
-  ami           = data.aws_ami.latest_amazon_linux.id
-  instance_type = "t2.micro"
-  iam_instance_profile        = aws_iam_instance_profile.ecs_instance_profile.name
+  ami                    = data.aws_ami.latest_amazon_linux.id
+  instance_type          = "t2.micro"
+  iam_instance_profile   = aws_iam_instance_profile.ecs_instance_profile.name
   key_name               = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 
   user_data = <<-EOF
               #!/bin/bash
+              sudo mkdir -p /etc/ecs
               echo "ECS_CLUSTER=eduard-test-cluster" | sudo tee -a /etc/ecs/ecs.config
               sudo yum update -y
               sudo amazon-linux-extras enable ecs
-              sudo mkdir -p /etc/ecs
               sudo yum install -y ecs-init
               sudo service docker start
+              sudo service ecs start
+              sleep 10
+              sudo service ecs stop
+              sleep 10
               sudo service ecs start
               EOF
 
@@ -98,12 +102,12 @@ resource "aws_instance" "ecs_instance" {
 
 # ECS Task Definition
 resource "aws_ecs_task_definition" "app" {
-  family                = "app"
-  network_mode         = "bridge"
+  family                   = "app"
+  network_mode             = "bridge"
   requires_compatibilities = ["EC2"]
-  cpu                   = "256"
-  memory                = "512"
-  container_definitions = <<DEFINITION
+  cpu                      = "256"
+  memory                   = "512"
+  container_definitions    = <<DEFINITION
   [
     {
       "name": "app",

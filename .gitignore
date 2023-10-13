@@ -13,3 +13,4 @@ crash.*.log
 *.tfvars.json
 infrastructure/tfplan
 infrastructure/.terraform.lock.hcl
+infrastructure/codebuild/.terraform.lock.hcl
