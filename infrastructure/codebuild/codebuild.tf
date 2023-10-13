@@ -52,6 +52,10 @@ resource "aws_iam_role_policy_attachment" "ecr_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
 }
 
+resource "aws_ecr_repository" "my_golang_app" {
+  name = "my-golang-app"
+}
+
 resource "aws_codebuild_project" "example" {
   name          = "my-golang-app"
   description   = "My Golang App build project"
@@ -87,6 +91,11 @@ resource "aws_codebuild_project" "example" {
     environment_variable {
       name  = "IMAGE_TAG"
       value = "latest"
+    }
+
+    environment_variable {
+      name  = "REPOSITORY_URI"
+      value = aws_ecr_repository.my_golang_app.repository_url
     }
   }
 
