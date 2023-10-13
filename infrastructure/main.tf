@@ -60,6 +60,13 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["31.18.0.0/16"]
   }
 
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["31.18.0.0/16"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
