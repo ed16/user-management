@@ -1,9 +1,12 @@
-name: AWS CodeBuild
+name: Deploy to Amazon ECS
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
