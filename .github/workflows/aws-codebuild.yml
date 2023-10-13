@@ -1,3 +1,5 @@
+name: AWS CodeBuild
+
 on: [push]
 
 jobs:
